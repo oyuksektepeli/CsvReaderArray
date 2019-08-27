@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
-namespace CsvReader
+namespace CsvReaderArray
 {
     class Reader
     {
@@ -16,12 +17,24 @@ namespace CsvReader
         public Country[] ReadFirstNCountries(int nCountries)
         {
             Country[] countries = new Country[nCountries];
+
+            using (StreamReader sr = new StreamReader(csvFilePath))
+            {
+                sr.ReadLine();
+
+                for (int i = 0; i < nCountries; i++)
+                {
+                    string csvline = sr.ReadLine();
+                    countries[i] = ReadCountryFromCsvLine(csvline);
+                }
+            }
+
             return countries;
         }
 
         public Country ReadCountryFromCsvLine(string csvline)
         {
-            string[] parts = csvline.Split(',');
+            string[] parts = csvline.Split(new char[] { ',' });
 
             string name = parts[0];
             string code = parts[1];

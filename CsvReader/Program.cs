@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CsvReader
+namespace CsvReaderArray
 {
     class Program
     {
@@ -14,7 +14,7 @@ namespace CsvReader
 
             foreach(Country country in countries)
             {
-                Console.WriteLine($"{country.Population}: {country.Name}");
+                Console.WriteLine($"{Formatter.FormatPopulation(country.Population).PadLeft(15)}: {country.Name}");
             }
         }
     }
